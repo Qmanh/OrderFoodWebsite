@@ -48,7 +48,7 @@ public class OrderServiceImpl implements OrderService {
         Order createdOrder = new Order();
         createdOrder.setCustomer(user);
         createdOrder.setCreatedAt(new Date());
-        createdOrder.setOrderStatus("PRNDING");
+        createdOrder.setOrderStatus("PENDING");
         createdOrder.setDeliveryAddress(savedAddress);
         createdOrder.setRestaurant(restaurant);
 
@@ -70,6 +70,8 @@ public class OrderServiceImpl implements OrderService {
 
         createdOrder.setItems(orderItems);
         createdOrder.setTotalPrice(totalPrice);
+        createdOrder.setTotalAmount(order.getTotalAmount());
+        createdOrder.setTotalItem(order.getTotalItem());
 
         Order savedOrder = orderRepository.save(createdOrder);
         restaurant.getOrders().add(savedOrder);

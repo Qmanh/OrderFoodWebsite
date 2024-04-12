@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api")
+@RequestMapping("/api")
 public class CategoryController {
 
     @Autowired
@@ -31,13 +31,13 @@ public class CategoryController {
         return new ResponseEntity<>(createdCategory, HttpStatus.CREATED);
     }
 
-    @GetMapping("/category/restaurant")
-    public ResponseEntity<List<Category>> getRestaurantCategory(
+    @GetMapping("/category/restaurant/{id}")
+    public ResponseEntity<List<Category>> getRestaurantCategory(@PathVariable Long id,
                                                    @RequestHeader("Authorization")String jwt) throws Exception {
 
         UserEntity user = userService.findUserByJwtToken(jwt);
 
-        List<Category> categories = categoryService.findCategoryByRestaurantId(user.getId());
-        return new ResponseEntity<>(categories, HttpStatus.OK);
+        List<Category> categories = categoryService.findCategoryByRestaurantId(id);
+        return new ResponseEntity<>(categories, HttpStatus.CREATED);
     }
 }

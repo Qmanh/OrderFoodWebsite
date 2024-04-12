@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -24,14 +26,16 @@ public class FoodServiceImpl implements FoodService {
     @Override
     public Food createFood(CreateFoodRequest req, Category category, Restaurant restaurant) {
         Food food = new Food();
+        food.setName(req.getName());
         food.setFoodCategory(category);
         food.setRestaurant(restaurant);
         food.setDescription(req.getDescription());
         food.setImages(req.getImages());
         food.setPrice(req.getPrice());
         food.setIngredients(req.getIngredients());
-        food.setSeasonal(req.isSeasional());
-        food.setVegetarian(req.isVegetarin());
+        food.setSeasonal(req.isSeasonal());
+        food.setVegetarian(req.isVegetarian());
+        food.setCreationDate(new Date());
 
         Food savedFood =  foodRepository.save(food);
         restaurant.getFoods().add(savedFood);

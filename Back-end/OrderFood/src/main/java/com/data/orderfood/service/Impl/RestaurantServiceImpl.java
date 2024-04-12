@@ -131,7 +131,12 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Override
     public Restaurant updateRestaurantStatus(Long id) throws Exception {
         Restaurant restaurant = findRestaurantById(id);
-        restaurant.setOpen(!restaurant.isOpen());
+        if(restaurant.isOpen()==true){
+            restaurant.setOpen(false);
+        }else{
+            restaurant.setOpen(true);
+        }
+
         return restaurantRepository.save(restaurant);
     }
 }
